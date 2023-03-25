@@ -16,7 +16,7 @@ return {
                         {
                             type = 'string',
                             name = 'osString',
-                            description = 'The current operating system. \'Horizon\' or \'Cafe\'.',
+                            description = 'The current operating system, \'Horizon\'.',
                         },
                     },
                 },
