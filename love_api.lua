@@ -1,7 +1,7 @@
 local path = (...):match('(.-)[^%./]+$')
 
 return {
-    version = '12.0',
+    version = '11.4',
     functions = {
         {
             name = 'getVersion',
