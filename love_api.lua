@@ -1,7 +1,7 @@
 local path = (...):match('(.-)[^%./]+$')
 
 return {
-    version = '11.4',
+    version = '12.0',
     functions = {
         {
             name = 'getVersion',
@@ -35,23 +35,8 @@ return {
             },
         },
         {
-            name = 'hasDeprecationOutput',
-            description = 'Gets whether LÖVE displays warnings when using deprecated functionality. It is disabled by default in fused mode, and enabled by default otherwise.\n\nWhen deprecation output is enabled, the first use of a formally deprecated LÖVE API will show a message at the bottom of the screen for a short time, and print the message to the console.',
-            variants = {
-                {
-                    returns = {
-                        {
-                            type = 'boolean',
-                            name = 'enabled',
-                            description = 'Whether deprecation output is enabled.',
-                        },
-                    },
-                },
-            },
-        },
-        {
             name = 'isVersionCompatible',
-            description = 'Gets whether the given version is compatible with the current running version of LÖVE.',
+            description = 'Gets whether the given version is compatible with the current running version of LÖVE Potion.',
             variants = {
                 {
                     arguments = {
@@ -92,21 +77,6 @@ return {
                             type = 'boolean',
                             name = 'compatible',
                             description = 'Whether the given version is compatible with the current running version of LÖVE.',
-                        },
-                    },
-                },
-            },
-        },
-        {
-            name = 'setDeprecationOutput',
-            description = 'Sets whether LÖVE displays warnings when using deprecated functionality. It is disabled by default in fused mode, and enabled by default otherwise.\n\nWhen deprecation output is enabled, the first use of a formally deprecated LÖVE API will show a message at the bottom of the screen for a short time, and print the message to the console.',
-            variants = {
-                {
-                    arguments = {
-                        {
-                            type = 'boolean',
-                            name = 'enable',
-                            description = 'Whether to enable or disable deprecation output.',
                         },
                     },
                 },
@@ -417,46 +387,17 @@ return {
             },
         },
         {
-            name = 'directorydropped',
-            description = 'Callback function triggered when a directory is dragged and dropped onto the window.',
-            variants = {
-                {
-                    description = 'Paths passed into this callback are able to be used with love.filesystem.mount, which is the only way to get read access via love.filesystem to the dropped directory. love.filesystem.mount does not generally accept other full platform-dependent directory paths that haven\'t been dragged and dropped onto the window.',
-                    arguments = {
-                        {
-                            type = 'string',
-                            name = 'path',
-                            description = 'The full platform-dependent path to the directory. It can be used as an argument to love.filesystem.mount, in order to gain read access to the directory with love.filesystem.',
-                        },
-                    },
-                },
-            },
-        },
-        {
-            name = 'displayrotated',
-            description = 'Called when the device display orientation changed, for example, user rotated their phone 180 degrees.',
-            variants = {
-                {
-                    arguments = {
-                        {
-                            type = 'number',
-                            name = 'index',
-                            description = 'The index of the display that changed orientation.',
-                        },
-                        {
-                            type = 'DisplayOrientation',
-                            name = 'orientation',
-                            description = 'The new orientation.',
-                        },
-                    },
-                },
-            },
-        },
-        {
             name = 'draw',
             description = 'Callback function used to draw on the screen every frame.',
             variants = {
                 {
+                    arguments = {
+                        {
+                            type = 'string',
+                            name = 'screen',
+                            description = 'The current screen being drawn on.'
+                        }
+                    }
                 },
             },
         },
@@ -470,22 +411,6 @@ return {
                             type = 'string',
                             name = 'msg',
                             description = 'The error message.',
-                        },
-                    },
-                },
-            },
-        },
-        {
-            name = 'filedropped',
-            description = 'Callback function triggered when a file is dragged and dropped onto the window.',
-            variants = {
-                {
-                    description = '',
-                    arguments = {
-                        {
-                            type = 'DroppedFile',
-                            name = 'file',
-                            description = 'The unopened File object representing the file that was dropped.',
                         },
                     },
                 },
@@ -572,22 +497,6 @@ return {
             },
         },
         {
-            name = 'joystickadded',
-            description = 'Called when a Joystick is connected.',
-            variants = {
-                {
-                    description = 'This callback is also triggered after love.load for every Joystick which was already connected when the game started up.',
-                    arguments = {
-                        {
-                            type = 'Joystick',
-                            name = 'joystick',
-                            description = 'The newly connected Joystick object.',
-                        },
-                    },
-                },
-            },
-        },
-        {
             name = 'joystickaxis',
             description = 'Called when a joystick axis moves.',
             variants = {
@@ -607,31 +516,6 @@ return {
                             type = 'number',
                             name = 'value',
                             description = 'The new axis value.',
-                        },
-                    },
-                },
-            },
-        },
-        {
-            name = 'joystickhat',
-            description = 'Called when a joystick hat direction changes.',
-            variants = {
-                {
-                    arguments = {
-                        {
-                            type = 'Joystick',
-                            name = 'joystick',
-                            description = 'The joystick object.',
-                        },
-                        {
-                            type = 'number',
-                            name = 'hat',
-                            description = 'The hat number.',
-                        },
-                        {
-                            type = 'JoystickHat',
-                            name = 'direction',
-                            description = 'The new hat direction.',
                         },
                     },
                 },
@@ -678,83 +562,6 @@ return {
             },
         },
         {
-            name = 'joystickremoved',
-            description = 'Called when a Joystick is disconnected.',
-            variants = {
-                {
-                    arguments = {
-                        {
-                            type = 'Joystick',
-                            name = 'joystick',
-                            description = 'The now-disconnected Joystick object.',
-                        },
-                    },
-                },
-            },
-        },
-        {
-            name = 'keypressed',
-            description = 'Callback function triggered when a key is pressed.',
-            variants = {
-                {
-                    description = 'Scancodes are keyboard layout-independent, so the scancode \'w\' will be generated if the key in the same place as the \'w\' key on an American keyboard is pressed, no matter what the key is labelled or what the user\'s operating system settings are.\n\nKey repeat needs to be enabled with love.keyboard.setKeyRepeat for repeat keypress events to be received. This does not affect love.textinput.',
-                    arguments = {
-                        {
-                            type = 'KeyConstant',
-                            name = 'key',
-                            description = 'Character of the pressed key.',
-                        },
-                        {
-                            type = 'Scancode',
-                            name = 'scancode',
-                            description = 'The scancode representing the pressed key.',
-                        },
-                        {
-                            type = 'boolean',
-                            name = 'isrepeat',
-                            description = 'Whether this keypress event is a repeat. The delay between key repeats depends on the user\'s system settings.',
-                        },
-                    },
-                },
-                {
-                    description = 'Key repeat needs to be enabled with love.keyboard.setKeyRepeat for repeat keypress events to be received.',
-                    arguments = {
-                        {
-                            type = 'KeyConstant',
-                            name = 'key',
-                            description = 'Character of the key pressed.',
-                        },
-                        {
-                            type = 'boolean',
-                            name = 'isrepeat',
-                            description = 'Whether this keypress event is a repeat. The delay between key repeats depends on the user\'s system settings.',
-                        },
-                    },
-                },
-            },
-        },
-        {
-            name = 'keyreleased',
-            description = 'Callback function triggered when a keyboard key is released.',
-            variants = {
-                {
-                    description = 'Scancodes are keyboard layout-independent, so the scancode \'w\' will be used if the key in the same place as the \'w\' key on an American keyboard is pressed, no matter what the key is labelled or what the user\'s operating system settings are.',
-                    arguments = {
-                        {
-                            type = 'KeyConstant',
-                            name = 'key',
-                            description = 'Character of the released key.',
-                        },
-                        {
-                            type = 'Scancode',
-                            name = 'scancode',
-                            description = 'The scancode representing the released key.',
-                        },
-                    },
-                },
-            },
-        },
-        {
             name = 'load',
             description = 'This function is called exactly once at the beginning of the game.',
             variants = {
@@ -770,136 +577,6 @@ return {
                             type = 'table',
                             name = 'unfilteredArg',
                             description = 'Unfiltered command-line arguments given to the executable (see #Notes).',
-                        },
-                    },
-                },
-            },
-        },
-        {
-            name = 'lowmemory',
-            description = 'Callback function triggered when the system is running out of memory on mobile devices.\n\nMobile operating systems may forcefully kill the game if it uses too much memory, so any non-critical resource should be removed if possible (by setting all variables referencing the resources to \'\'\'nil\'\'\'), when this event is triggered. Sounds and images in particular tend to use the most memory.',
-            variants = {
-                {
-                },
-            },
-        },
-        {
-            name = 'mousefocus',
-            description = 'Callback function triggered when window receives or loses mouse focus.',
-            variants = {
-                {
-                    arguments = {
-                        {
-                            type = 'boolean',
-                            name = 'focus',
-                            description = 'Whether the window has mouse focus or not.',
-                        },
-                    },
-                },
-            },
-        },
-        {
-            name = 'mousemoved',
-            description = 'Callback function triggered when the mouse is moved.',
-            variants = {
-                {
-                    description = 'If Relative Mode is enabled for the mouse, the \'\'\'dx\'\'\' and \'\'\'dy\'\'\' arguments of this callback will update but \'\'\'x\'\'\' and \'\'\'y\'\'\' are not guaranteed to.',
-                    arguments = {
-                        {
-                            type = 'number',
-                            name = 'x',
-                            description = 'The mouse position on the x-axis.',
-                        },
-                        {
-                            type = 'number',
-                            name = 'y',
-                            description = 'The mouse position on the y-axis.',
-                        },
-                        {
-                            type = 'number',
-                            name = 'dx',
-                            description = 'The amount moved along the x-axis since the last time love.mousemoved was called.',
-                        },
-                        {
-                            type = 'number',
-                            name = 'dy',
-                            description = 'The amount moved along the y-axis since the last time love.mousemoved was called.',
-                        },
-                        {
-                            type = 'boolean',
-                            name = 'istouch',
-                            description = 'True if the mouse button press originated from a touchscreen touch-press.',
-                        },
-                    },
-                },
-            },
-        },
-        {
-            name = 'mousepressed',
-            description = 'Callback function triggered when a mouse button is pressed.',
-            variants = {
-                {
-                    description = 'Use love.wheelmoved to detect mouse wheel motion. It will not register as a button press in version 0.10.0 and newer.',
-                    arguments = {
-                        {
-                            type = 'number',
-                            name = 'x',
-                            description = 'Mouse x position, in pixels.',
-                        },
-                        {
-                            type = 'number',
-                            name = 'y',
-                            description = 'Mouse y position, in pixels.',
-                        },
-                        {
-                            type = 'number',
-                            name = 'button',
-                            description = 'The button index that was pressed. 1 is the primary mouse button, 2 is the secondary mouse button and 3 is the middle button. Further buttons are mouse dependent.',
-                        },
-                        {
-                            type = 'boolean',
-                            name = 'istouch',
-                            description = 'True if the mouse button press originated from a touchscreen touch-press.',
-                        },
-                        {
-                            type = 'number',
-                            name = 'presses',
-                            description = 'The number of presses in a short time frame and small area, used to simulate double, triple clicks',
-                        },
-                    },
-                },
-            },
-        },
-        {
-            name = 'mousereleased',
-            description = 'Callback function triggered when a mouse button is released.',
-            variants = {
-                {
-                    arguments = {
-                        {
-                            type = 'number',
-                            name = 'x',
-                            description = 'Mouse x position, in pixels.',
-                        },
-                        {
-                            type = 'number',
-                            name = 'y',
-                            description = 'Mouse y position, in pixels.',
-                        },
-                        {
-                            type = 'number',
-                            name = 'button',
-                            description = 'The button index that was released. 1 is the primary mouse button, 2 is the secondary mouse button and 3 is the middle button. Further buttons are mouse dependent.',
-                        },
-                        {
-                            type = 'boolean',
-                            name = 'istouch',
-                            description = 'True if the mouse button release originated from a touchscreen touch-release.',
-                        },
-                        {
-                            type = 'number',
-                            name = 'presses',
-                            description = 'The number of presses in a short time frame and small area, used to simulate double, triple clicks',
                         },
                     },
                 },
@@ -951,32 +628,6 @@ return {
                             type = 'function',
                             name = 'mainLoop',
                             description = 'Function which handlers one frame, including events and rendering when called.',
-                        },
-                    },
-                },
-            },
-        },
-        {
-            name = 'textedited',
-            description = 'Called when the candidate text for an IME (Input Method Editor) has changed.\n\nThe candidate text is not the final text that the user will eventually choose. Use love.textinput for that.',
-            variants = {
-                {
-                    description = '',
-                    arguments = {
-                        {
-                            type = 'string',
-                            name = 'text',
-                            description = 'The UTF-8 encoded unicode candidate text.',
-                        },
-                        {
-                            type = 'number',
-                            name = 'start',
-                            description = 'The start cursor of the selected candidate text.',
-                        },
-                        {
-                            type = 'number',
-                            name = 'length',
-                            description = 'The length of the selected candidate text. May be 0.',
                         },
                     },
                 },
@@ -1155,42 +806,7 @@ return {
                     },
                 },
             },
-        },
-        {
-            name = 'visible',
-            description = 'Callback function triggered when window is minimized/hidden or unminimized by the user.',
-            variants = {
-                {
-                    arguments = {
-                        {
-                            type = 'boolean',
-                            name = 'visible',
-                            description = 'True if the window is visible, false if it isn\'t.',
-                        },
-                    },
-                },
-            },
-        },
-        {
-            name = 'wheelmoved',
-            description = 'Callback function triggered when the mouse wheel is moved.',
-            variants = {
-                {
-                    arguments = {
-                        {
-                            type = 'number',
-                            name = 'x',
-                            description = 'Amount of horizontal mouse wheel movement. Positive values indicate movement to the right.',
-                        },
-                        {
-                            type = 'number',
-                            name = 'y',
-                            description = 'Amount of vertical mouse wheel movement. Positive values indicate upward movement.',
-                        },
-                    },
-                },
-            },
-        },
+        }
     },
     types = {
         {
@@ -1210,21 +826,6 @@ return {
                                     type = 'Data',
                                     name = 'clone',
                                     description = 'The new copy.'
-                                }
-                            },
-                        },
-                    },
-                },
-                {
-                    name = 'getFFIPointer',
-                    description = 'Gets an FFI pointer to the Data.\n\nThis function should be preferred instead of Data:getPointer because the latter uses light userdata which can\'t store more all possible memory addresses on some new ARM64 architectures, when LuaJIT is used.',
-                    variants = {
-                        {
-                            returns = {
-                                {
-                                    type = 'cdata',
-                                    name = 'pointer',
-                                    description = 'A raw void* pointer to the Data, or nil if FFI is unavailable.',
                                 }
                             },
                         },
@@ -1347,7 +948,6 @@ return {
         require(path .. 'modules.joystick.Joystick'),
         require(path .. 'modules.keyboard.Keyboard'),
         require(path .. 'modules.math.Math'),
-        require(path .. 'modules.mouse.Mouse'),
         require(path .. 'modules.physics.Physics'),
         require(path .. 'modules.sound.Sound'),
         require(path .. 'modules.system.System'),
