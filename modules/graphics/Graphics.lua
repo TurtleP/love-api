@@ -1243,7 +1243,7 @@ return {
             },
         },
         {
-            name = 'getPixelDimenions',
+            name = 'getPixelDimensions',
             description = 'Gets the width and height in pixels of the window.\n\nlove.graphics.getDimensions gets the dimensions of the window in units scaled by the screen\'s DPI scale factor, rather than pixels. Use getDimensions for calculations related to drawing to the screen and using the graphics coordinate system (calculating the center of the screen, for example), and getPixelDimensions only when dealing specifically with underlying pixels (pixel-related calculations in a pixel Shader, for example).',
             variants = {
                 {
@@ -2165,7 +2165,7 @@ return {
                         },
                         {
                             type = 'table',
-                            name = 'flags',
+                            name = 'settings',
                             description = 'A table containing the following fields:',
                             table = {
                                 {
@@ -2206,7 +2206,7 @@ return {
                         },
                         {
                             type = 'table',
-                            name = 'flags',
+                            name = 'settings',
                             description = 'A table containing the following fields:',
                             table = {
                                 {
@@ -2247,7 +2247,7 @@ return {
                         },
                         {
                             type = 'table',
-                            name = 'flags',
+                            name = 'settings',
                             description = 'A table containing the following fields:',
                             table = {
                                 {
@@ -2288,7 +2288,7 @@ return {
                         },
                         {
                             type = 'table',
-                            name = 'flags',
+                            name = 'settings',
                             description = 'A table containing the following fields:',
                             table = {
                                 {
@@ -4183,8 +4183,13 @@ return {
                     },
                 },
                 {
-                },
-                {
+                    arguments = {
+                        {
+                            type = 'table',
+                            name = 'rgba',
+                            description = 'A numerical indexed table with the red, green, blue and alpha values as numbers. The alpha is optional and defaults to 1 if it is left out.',
+                        },
+                    },
                 },
             },
         },
